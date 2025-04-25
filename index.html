@@ -479,485 +479,1415 @@
         <h2>Getting Started</h2>
         <p>1. After the loading screen, sign up or log in with your email/username, password (min 8 characters), 6-digit code, and 4-digit code.</p>
         <p>2. View the welcome notice with recent updates, then access the Dashboard.</p>
-        <p>3. Use the sidebar to open modals for Bots, Inspiration Lab, or<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#FF6F61">
-  <meta name="description" content="Smart Hub Ultra - The ultimate AI bot creation platform">
-  <title>Smart Hub Ultra</title>
-  <link rel="manifest" href="/manifest.json">
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: linear-gradient(135deg, #FF6F61, #33B5FF, #D4A5FF); color: #F5F6F5; overflow: hidden; }
-    .loading-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-    .loading-logo { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
-    .loading-logo h1 { font-size: 2em; margin-top: 10px; }
-    .progress-bar { width: 200px; height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; overflow: hidden; }
-    .progress-fill { width: 0; height: 100%; background: linear-gradient(90deg, #FF6F61, #33B5FF, #D4A5FF); transition: width 0.3s; }
-    @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .rotate { animation: rotate 2s infinite linear; }
-    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); z-index: 1000; }
-    .modal-content { max-width: 90%; max-height: 90%; overflow-y: auto; position: relative; resize: both; }
-    .glassmorphic { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 10px; padding: 20px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); transition: transform 0.1s; }
-    .glassmorphic:hover { transform: scale(1.02); }
-    .login-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FF6F61, #33B5FF) 1; }
-    .recovery-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #D4A5FF, #FF6F61) 1; }
-    .support-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #33B5FF, #D4A5FF) 1; }
-    .welcome-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FF6F61, #D4A5FF) 1; }
-    .dashboard-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #33B5FF, #00FFAA) 1; }
-    .bots-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #D4A5FF, #FF6F61) 1; }
-    .inspiration-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FF6F61, #FFAA33) 1; }
-    .builder-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #00FFAA, #33B5FF) 1; }
-    .workshop-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FFAA33, #D4A5FF) 1; }
-    .editor-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #33B5FF, #FF6F61) 1; }
-    .playground-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #D4A5FF, #00FFAA) 1; }
-    .creators-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FFAA33, #33B5FF) 1; }
-    .collab-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FF6F61, #D4A5FF) 1; }
-    .voice-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #00FFAA, #FFAA33) 1; }
-    .analytics-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #33B5FF, #FF6F61) 1; }
-    .account-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #D4A5FF, #00FFAA) 1; }
-    .manual-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FFAA33, #33B5FF) 1; }
-    .boss-gradient { border: 2px solid transparent; border-image: linear-gradient(45deg, #FF6F61, #D4A5FF) 1; }
-    .btn { padding: 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2em; transition: transform 0.1s, box-shadow 0.3s; }
-    .btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-    .blue-glow { background: #33B5FF; box-shadow: 0 0 10px #33B5FF; }
-    .red-glow { background: #FF3333; box-shadow: 0 0 10px #FF3333; }
-    .purple-glow { background: #D4A5FF; box-shadow: 0 0 10px #D4A5FF; }
-    .green-glow { background: #00FFAA; box-shadow: 0 0 10px #00FFAA; }
-    .orange-glow { background: #FFAA33; box-shadow: 0 0 10px #FFAA33; }
-    .sidebar { width: 200px; position: fixed; top: 0; left: 0; height: 100%; background: rgba(255, 255, 255, 0.05); padding: 20px; }
-    .sidebar a { display: block; color: #F5F6F5; padding: 10px; text-decoration: none; }
-    .sidebar a:hover { background: linear-gradient(90deg, #33B5FF, #D4A5FF); border-radius: 5px; }
-    .drop-zone { padding: 10px; margin: 10px; border: 2px dashed #33B5FF; }
-    .hidden { display: none; }
-    .error { color: #FF3333; }
-    .toast { position: fixed; bottom: 20px; left: 20px; padding: 10px; border-radius: 5px; color: #fff; background: linear-gradient(90deg, #FF6F61, #33B5FF); }
-    .bot-item { background: rgba(255, 255, 255, 0.1); padding: 15px; margin: 10px 0; border-radius: 10px; }
-    .account-section { margin: 20px 0; }
-    #profile-pic { width: 100px; height: 100px; border-radius: 50%; }
-    .notification-bell { position: fixed; top: 20px; right: 20px; z-index: 1001; }
-    #notification-icon { font-size: 24px; cursor: pointer; }
-    #notification-count { background: #FF3333; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
-    #notification-dropdown { position: absolute; right: 0; top: 30px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 10px; border-radius: 5px; width: 300px; max-height: 400px; overflow-y: auto; }
-    #text-input-section { margin: 10px 0; }
-    #text-input { width: 100%; height: 100px; }
-    .boss-section { margin: 20px 0; }
-    .tooltip { position: relative; display: inline-block; margin-left: 5px; }
-    .tooltip::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; border-radius: 5px; white-space: nowrap; opacity: 0; transition: opacity 0.3s; }
-    .tooltip:hover::after { opacity: 1; }
-    .builder-canvas { display: flex; gap: 10px; }
-    #builder-components { width: 100px; background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 5px; }
-    #builder-workspace { flex: 1; min-height: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 5px; }
-    .component { padding: 5px; margin: 5px 0; border-radius: 3px; cursor: move; }
-    .node { padding: 10px; margin: 5px; background: #FF3333; border-radius: 5px; }
-    .meme-preview, .image-preview { max-width: 100%; border-radius: 5px; margin-top: 10px; }
-    #analytics-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-    .stat-card { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 5px; }
-    #dashboard-widgets { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-    .dashboard-widget { padding: 20px; text-align: center; cursor: pointer; }
-    .tour { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.8); color: #fff; padding: 20px; border-radius: 10px; z-index: 1000; }
-    #collab-chat { margin-top: 20px; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 5px; }
-    #chat-messages { max-height: 200px; overflow-y: auto; margin-bottom: 10px; }
-    #chat-input { width: calc(100% - 70px); padding: 5px; }
-    #qr-code { margin-top: 10px; border: 5px solid; border-image: linear-gradient(45deg, #FF6F61, #33B5FF) 1; padding: 5px; }
-    .close-modal { position: absolute; top: 10px; right: 10px; }
-    #level-progress { margin: 10px 0; }
-    #level-progress-fill { background: linear-gradient(90deg, #FF6F61, #D4A5FF); }
-    .featured-bot { border: 2px solid; border-image: linear-gradient(45deg, #FFAA33, #00FFAA) 1; }
-    .sentiment-positive { color: #00FFAA; }
-    .sentiment-negative { color: #FF3333; }
-    .message-user { background: #33B5FF; color: #fff; padding: 5px 10px; border-radius: 10px; margin: 5px 0; }
-    .message-other { background: #D4A5FF; color: #fff; padding: 5px 10px; border-radius: 10px; margin: 5px 0; }
-    .version-item { margin: 5px 0; padding: 5px; background: rgba(255, 255, 255, 0.05); border-radius: 5px; }
-    .test-input { width: 100%; padding: 5px; margin: 5px 0; }
-    .battle-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
-    .heatmap { width: 100%; height: 200px; background: rgba(255, 255, 255, 0.05); }
-    .activity-feed { max-height: 300px; overflow-y: auto; }
-    .showcase-item { border: 2px solid #00FFAA; padding: 10px; margin: 10px 0; border-radius: 5px; }
-    .achievement { background: #FFAA33; color: #fff; padding: 5px; border-radius: 5px; margin: 5px; }
-    .profile-section { display: flex; flex-direction: column; align-items: center; }
-    .theme-builder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .theme-option { width: 50px; height: 50px; border-radius: 50%; cursor: pointer; }
-    .comment-thread { margin-top: 10px; padding: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 5px; }
-  </style>
-</head>
-<body>
-  <!-- Loading Screen -->
-  <div id="loading-screen" class="loading-screen">
-    <div class="loading-logo">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40" stroke="url(#gradient)" stroke-width="10" fill="none" class="rotate"/>
-        <defs>
-          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#FF6F61;stop-opacity:1"/>
-            <stop offset="50%" style="stop-color:#33B5FF;stop-opacity:1"/>
-            <stop offset="100%" style="stop-color:#D4A5FF;stop-opacity:1"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <h1>Smart Hub Ultra</h1>
-    </div>
-    <div class="progress-bar">
-      <div id="progress" class="progress-fill"></div>
-    </div>
-    <p>Loading assets...</p>
-  </div>
-
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar hidden">
-    <h2>Smart Hub Ultra</h2>
-    <a href="#" data-modal="dashboard-modal">Dashboard</a>
-    <a href="#" data-modal="bots-modal">Bots</a>
-    <a href="#" data-modal="inspiration-modal">Inspiration Lab</a>
-    <a href="#" data-modal="builder-modal">Bot Builder</a>
-    <a href="#" data-modal="workshop-modal">AI Workshop</a>
-    <a href="#" data-modal="editor-modal">Editor</a>
-    <a href="#" data-modal="playground-modal">Playground</a>
-    <a href="#" data-modal="creators-modal">Creator’s Hub</a>
-    <a href="#" data-modal="collab-modal">Collab Hub</a>
-    <a href="#" data-modal="voice-modal">Voice Command</a>
-    <a href="#" data-modal="analytics-modal">Analytics</a>
-    <a href="#" data-modal="account-modal">Account</a>
-    <a href="#" data-modal="manual-modal">Manual</a>
-    <a href="#" id="boss-link" class="hidden" data-modal="boss-modal">Boss View</a>
-    <a href="#" id="logout-btn">Logout</a>
-  </div>
-
-  <!-- Notification Bell -->
-  <div id="notification-bell" class="notification-bell hidden">
-    <span id="notification-icon">🔔</span>
-    <span id="notification-count" class="hidden">0</span>
-    <div id="notification-dropdown" class="hidden">
-      <h3>Updates</h3>
-      <div id="notification-list"></div>
-    </div>
-  </div>
-
-  <!-- Modals -->
-  <!-- Login Modal -->
-  <div id="login-modal" class="modal">
-    <div class="modal-content glassmorphic login-gradient">
-      <h2>Smart Hub Access</h2>
-      <input type="text" id="username" placeholder="Username (optional)">
-      <input type="email" id="email" placeholder="Email (optional)">
-      <input type="password" id="password" placeholder="Password (min 8 chars)" required>
-      <input type="text" id="six-digit" placeholder="6-Digit Code" maxlength="6" required>
-      <input type="text" id="four-digit" placeholder="4-Digit Code" maxlength="4" required>
-      <button id="sign-in-btn" class="btn red-glow">Sign In</button>
-      <button id="sign-up-btn" class="btn blue-glow">Sign Up</button>
-      <button id="forgot-password" class="btn purple-glow">Forgot Password?</button>
-      <p id="auth-error" class="error hidden"></p>
-      <div id="login-spinner" class="hidden">Processing...</div>
-    </div>
-  </div>
-
-  <!-- Recovery Modal -->
-  <div id="recovery-modal" class="modal hidden">
-    <div class="modal-content glassmorphic recovery-gradient">
-      <h2>Password Recovery</h2>
-      <input type="text" id="recovery-six-digit" placeholder="6-Digit Code">
-      <input type="text" id="recovery-four-digit" placeholder="4-Digit Code">
-      <button id="recover-btn" class="btn blue-glow">Recover</button>
-      <button id="contact-support" class="btn purple-glow">Contact Support</button>
-      <p id="recovery-error" class="error hidden"></p>
-    </div>
-  </div>
-
-  <!-- Support Modal -->
-  <div id="support-modal" class="modal hidden">
-    <div class="modal-content glassmorphic support-gradient">
-      <h2>Contact Support</h2>
-      <input type="text" id="support-username" placeholder="Username">
-      <input type="text" id="support-name" placeholder="Name">
-      <input type="email" id="support-email" placeholder="Email">
-      <input type="text" id="support-number" placeholder="Phone Number">
-      <textarea id="support-message" placeholder="Describe your issue..."></textarea>
-      <button id="submit-support" class="btn blue-glow">Submit</button>
-    </div>
-  </div>
-
-  <!-- Welcome Modal -->
-  <div id="welcome-modal" class="modal hidden">
-    <div class="modal-content glassmorphic welcome-gradient">
-      <h2>Welcome to Smart Hub Ultra!</h2>
-      <p>The ultimate AI bot creation platform.</p>
-      <h3>Recent Updates</h3>
-      <div id="welcome-updates"></div>
-      <button id="dismiss-welcome" class="btn blue-glow">Got It</button>
-    </div>
-  </div>
-
-  <!-- Dashboard Modal -->
-  <div id="dashboard-modal" class="modal hidden">
-    <div class="modal-content glassmorphic dashboard-gradient">
-      <h1>Dashboard</h1>
-      <div id="dashboard-tour" class="tour hidden">
-        <p>Step 1: Welcome to the Dashboard! Click the widgets to explore.</p>
-        <button id="next-tour-step" class="btn blue-glow">Next</button>
+        <p>3. Use the sidebar to open modals for Bots, Inspiration Lab, or other sections.</p>
+        <p>4. Check your Account modal to manage your profile, settings, and earn badges.</p>
       </div>
-      <div id="daily-challenges">
-        <h3>Daily Challenges</h3>
-        <div id="challenge-list"></div>
-      </div>
-      <div id="dashboard-widgets">
-        <div class="dashboard-widget glassmorphic" data-action="view-bots">
-          <p>Bots: <span id="bot-status">0 active</span></p>
-          <span class="tooltip" data-tooltip="View your bots">?</span>
-        </div>
-        <div class="dashboard-widget glassmorphic" data-action="view-weather">
-          <p>Weather: <span id="weather">Loading...</span></p>
-          <span class="tooltip" data-tooltip="Check the weather in London">?</span>
-        </div>
-        <div class="dashboard-widget glassmorphic" data-action="view-insights">
-          <p>AI Insights: <span id="ai-insights">Analyzing...</span></p>
-          <span class="tooltip" data-tooltip="Get AI suggestions">?</span>
-        </div>
-        <div class="dashboard-widget glassmorphic" data-action="create-bot">
-          <p>Create a New Bot</p>
-          <span class="tooltip" data-tooltip="Start building a bot">?</span>
-        </div>
-      </div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Bots Modal -->
-  <div id="bots-modal" class="modal hidden">
-    <div class="modal-content glassmorphic bots-gradient">
-      <h1>Bots</h1>
-      <label><input type="checkbox" id="use-wizard"> Use Creation Wizard <span class="tooltip" data-tooltip="Guided bot creation">?</span></label>
-      <div id="creation-wizard" class="hidden">
-        <h3>Bot Creation Wizard</h3>
-        <textarea id="bot-description" placeholder="Describe your bot..."></textarea>
-        <input type="file" id="bot-blueprint" accept=".json,.yaml">
-        <button id="submit-wizard" class="btn blue-glow">Create Bot</button>
-      </div>
-      <div id="file-upload" class="drop-zone">
-        <p>Drop JSON/YAML blueprints or tap to upload <span class="tooltip" data-tooltip="Upload bot blueprints">?</span></p>
-        <input type="file" id="file-input" multiple accept=".json,.yaml">
-      </div>
-      <button id="voice-input-btn" class="btn red-glow">Voice Idea <span class="tooltip" data-tooltip="Create a bot using voice">?</span></button>
-      <div id="text-input-section">
-        <textarea id="text-input" placeholder="Enter your bot idea..."></textarea>
-        <button id="text-input-btn" class="btn red-glow">Submit Text Idea</button>
-      </div>
-      <button id="fusion-btn" class="btn blue-glow">Fuse Bots <span class="tooltip" data-tooltip="Combine two bots">?</span></button>
-      <div id="bot-review" class="hidden"></div>
-      <div id="bot-list"></div>
-      <h3>Marketplace</h3>
-      <div id="marketplace-featured">
-        <h4>Featured Bots</h4>
-        <div id="featured-bots"></div>
-      </div>
-      <div id="marketplace"></div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Inspiration Lab Modal -->
-  <div id="inspiration-modal" class="modal hidden">
-    <div class="modal-content glassmorphic inspiration-gradient">
-      <h1>Inspiration Lab</h1>
-      <input type="text" id="meme-search" placeholder="Search memes...">
-      <div id="inspiration-ideas"></div>
-      <button id="generate-idea" class="btn blue-glow">Generate New Idea</button>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Bot Builder Modal -->
-  <div id="builder-modal" class="modal hidden">
-    <div class="modal-content glassmorphic builder-gradient">
-      <h1>Bot Builder</h1>
-      <div id="builder-canvas" class="builder-canvas">
-        <div id="builder-components">
-          <div class="component glassmorphic" data-type="action">Action</div>
-          <div class="component glassmorphic" data-type="condition">Condition</div>
-          <div class="component glassmorphic" data-type="api">API Call</div>
-          <div class="component glassmorphic" data-type="meme">Meme Fetch</div>
-          <div class="component glassmorphic" data-type="image">Image Fetch</div>
-        </div>
-        <div id="builder-workspace"></div>
-      </div>
-      <button id="build-bot" class="btn blue-glow">Build Bot</button>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- AI Workshop Modal -->
-  <div id="workshop-modal" class="modal hidden">
-    <div class="modal-content glassmorphic workshop-gradient">
-      <h1>AI Workshop</h1>
-      <textarea id="workshop-code" style="width: 100%; height: 300px;"></textarea>
-      <button id="debug-code" class="btn blue-glow">Debug with AI</button>
-      <button id="review-code" class="btn green-glow">AI Code Review</button>
-      <div id="workshop-suggestions"></div>
-      <div id="code-review"></div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Editor Modal -->
-  <div id="editor-modal" class="modal hidden">
-    <div class="modal-content glassmorphic editor-gradient">
-      <h1>Editor</h1>
-      <textarea id="code-editor" style="width: 100%; height: 400px;"></textarea>
-      <div id="code-suggestions"></div>
-      <button id="run-code" class="btn blue-glow">Run Code</button>
-      <button id="save-version" class="btn green-glow">Save Version</button>
-      <div id="version-history"></div>
-      <button id="share-btn" class="btn green-glow">Share Code</button>
-      <button id="generate-qr" class="btn orange-glow">Generate QR Code</button>
-      <div id="qr-code"></div>
-      <div id="code-output"></div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Playground Modal -->
-  <div id="playground-modal" class="modal hidden">
-    <div class="modal-content glassmorphic playground-gradient">
-      <h1>Bot Playground</h1>
-      <div id="bot-playground"></div>
-      <div id="sentiment-analysis" class="hidden"></div>
-      <div id="test-environment">
-        <h3>Live Testing</h3>
-        <input type="text" id="test-input" class="test-input" placeholder="Enter test input...">
-        <button id="test-bot" class="btn blue-glow">Test Bot</button>
-        <div id="test-logs"></div>
-      </div>
-      <div id="bot-battle">
-        <h3>Bot Battle</h3>
-        <select id="opponent-bot"></select>
-        <button id="start-battle" class="btn red-glow">Start Battle</button>
-        <div id="battle-results"></div>
-      </div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Creator’s Hub Modal -->
-  <div id="creators-modal" class="modal hidden">
-    <div class="modal-content glassmorphic creators-gradient">
-      <h1>Creator’s Hub</h1>
-      <input type="text" id="bot-search" placeholder="Search bots...">
-      <div id="bot-list"></div>
-      <h3>Bot Showcase</h3>
-      <div id="bot-showcase"></div>
-      <h3>Tracking Logs</h3>
-      <div id="tracking-logs"></div>
-      <h3>Leaderboard</h3>
-      <div id="leaderboard"></div>
-      <h3>Marketplace</h3>
-      <div id="marketplace-featured">
-        <h4>Featured Bots</h4>
-        <div id="featured-bots"></div>
-      </div>
-      <div id="marketplace"></div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Collab Hub Modal -->
-  <div id="collab-modal" class="modal hidden">
-    <div class="modal-content glassmorphic collab-gradient">
-      <h1>Collab Hub</h1>
-      <input type="text" id="collab-user" placeholder="Invite user by email...">
-      <button id="invite-user" class="btn blue-glow">Invite</button>
-      <div id="collab-space">
-        <textarea id="collab-editor" style="width: 100%; height: 300px;"></textarea>
-        <div id="code-diff"></div>
-      </div>
-      <div id="collab-chat" class="hidden">
-        <h3>Live Chat</h3>
-        <div id="chat-messages"></div>
-        <input type="text" id="chat-input" placeholder="Type a message...">
-        <button id="send-chat" class="btn blue-glow">Send</button>
-      </div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Voice Command Modal -->
-  <div id="voice-modal" class="modal hidden">
-    <div class="modal-content glassmorphic voice-gradient">
-      <h1>Voice Command Center</h1>
-      <button id="start-voice" class="btn red-glow">Start Listening</button>
-      <div id="voice-output"></div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Analytics Modal -->
-  <div id="analytics-modal" class="modal hidden">
-    <div class="modal-content glassmorphic analytics-gradient">
-      <h1>Analytics Dashboard</h1>
-      <div id="analytics-stats"></div>
-      <div id="heatmap" class="heatmap"></div>
-      <div id="bot-metrics"></div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Account Modal -->
-  <div id="account-modal" class="modal hidden">
-    <div class="modal-content glassmorphic account-gradient">
-      <h1>Account Portal</h1>
-      <div class="account-section glassmorphic">
-        <h2>Profile Picture</h2>
-        <img id="profile-pic" src="default-pic.jpg" alt="Profile Picture">
-        <input type="file" id="profile-pic-upload" accept="image/*">
-      </div>
-      <div class="account-section glassmorphic">
-        <h2>Change Credentials</h2>
-        <input type="password" id="new-password" placeholder="New Password">
-        <input type="text" id="new-six-digit" placeholder="New 6-Digit Code" maxlength="6">
-        <input type="text" id="new-four-digit" placeholder="New 4-Digit Code" maxlength="4">
-        <button id="change-password" class="btn blue-glow">Update</button>
-      </div>
-      <div class="account-section glassmorphic">
-        <h2>Account Overview</h2>
-        <p><b>Username:</b> <span id="account-username"></span></p>
-        <p><b>Email:</b> <span id="account-email"></span></p>
-        <p><b>Bots Created:</b> <span id="account-bots"></span></p>
-        <p><b>Points:</b> <span id="account-points"></span></p>
-        <p><b>Level:</b> <span id="account-level"></span></p>
-        <div id="level-progress" class="progress-bar">
-          <div id="level-progress-fill" class="progress-fill"></div>
-        </div>
-        <p><b>Badges:</b> <span id="account-badges"></span></p>
-      </div>
-      <div class="account-section glassmorphic">
-        <h2>Settings</h2>
-        <label><input type="checkbox" id="enable-narration"> AI Narration</label>
-        <label><input type="checkbox" id="mentor-mode"> AI Mentor</label>
-        <label><input type="checkbox" id="telegram-notifs"> Telegram Notifications</label>
-        <input type="text" id="telegram-token" placeholder="Telegram Bot Token" value="7264906653:AAFg1NQr3k3XTcqRHJJacnZ8_pliOWZa6rY">
-        <input type="text" id="telegram-chat-id" placeholder="Telegram Chat ID">
-        <button id="fetch-chat-id" class="btn blue-glow">Fetch Chat ID</button>
-        <select id="language-select">
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
-          <option value="fr">French</option>
-        </select>
-        <input type="file" id="theme-image" accept="image/*">
-        <input type="color" id="theme-color" value="#1A1A2E">
-        <button id="apply-theme" class="btn blue-glow">Apply Theme</button>
-        <button id="theme-toggle" class="btn purple-glow">Toggle Theme</button>
-        <button id="webhook-setup" class="btn blue-glow">Setup Webhook</button>
-        <label><input type="checkbox" id="save-modal-layout"> Save Modal Layout</label>
-      </div>
-      <button class="close-modal btn purple-glow">Close</button>
-    </div>
-  </div>
-
-  <!-- Manual Modal -->
-  <div id="manual-modal" class="modal hidden">
-    <div class="modal-content glassmorphic manual-gradient">
-      <h1>User Manual</h1>
       <div class="manual-section glassmorphic">
-        <h2>Getting Started</h2>
-        <p>1. After the loading screen, sign up or log in with your email/username, password (min 8 characters), 6-digit code, and 4-digit code.</p>
-        <p>2. View the welcome notice with recent updates, then access the Dashboard.</p>
-        <p>3. Use the sidebar to open modals for Bots, Inspiration Lab, or
+        <h2>Advanced Features</h2>
+        <p>- Use the Bot Builder to create bots with a drag-and-drop interface.</p>
+        <p>- Test bots in the Playground with live testing and bot battles.</p>
+        <p>- Collaborate in real-time in the Collab Hub with live chat and code diff views.</p>
+        <p>- Share bots via QR codes or social media from the Editor and Marketplace.</p>
+        <p>- Complete daily challenges in the Dashboard to earn bonus XP.</p>
+      </div>
+      <div class="manual-section glassmorphic">
+        <h2>FAQs</h2>
+        <p><b>Q: How do I enable AI narration?</b> Go to Account > Settings and enable AI Narration.</p>
+        <p><b>Q: What are Bot Battles?</b> In the Playground, pit your bot against another in a performance challenge.</p>
+        <p><b>Q: How do I save modal layouts?</b> In Account > Settings, enable "Save Modal Layout" and resize modals as needed.</p>
+      </div>
+      <button class="close-modal btn purple-glow">Close</button>
+    </div>
+  </div>
+
+  <!-- Boss View Modal -->
+  <div id="boss-modal" class="modal hidden">
+    <div class="modal-content glassmorphic boss-gradient">
+      <h1>Boss View</h1>
+      <div class="boss-section glassmorphic">
+        <h2>Users</h2>
+        <div id="boss-users"></div>
+      </div>
+      <div class="boss-section glassmorphic">
+        <h2>Bots</h2>
+        <div id="boss-bots"></div>
+      </div>
+      <div class="boss-section glassmorphic">
+        <h2>Support Tickets</h2>
+        <div id="boss-tickets"></div>
+      </div>
+      <div class="boss-section glassmorphic">
+        <h2>Performance Metrics</h2>
+        <div id="boss-performance"></div>
+      </div>
+      <div class="boss-section glassmorphic">
+        <h2>Live Activity Feed</h2>
+        <div id="activity-feed" class="activity-feed"></div>
+      </div>
+      <div class="boss-section glassmorphic">
+        <h2>Broadcast Announcement</h2>
+        <textarea id="announcement-text" placeholder="Enter announcement..."></textarea>
+        <button id="broadcast-announcement" class="btn blue-glow">Broadcast</button>
+      </div>
+      <button class="close-modal btn purple-glow">Close</button>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8qPo1m1Na6u20e3b3Qf8eCfk5EBn15o",
+      authDomain: "smarthubultra.firebaseapp.com",
+      databaseURL: "https://smarthubultra-default-rtdb.firebaseio.com",
+      projectId: "smarthubultra",
+      storageBucket: "smarthubultra.appspot.com",
+      messagingSenderId: "1045339361627",
+      appId: "1:1045339361627:web:6d3a5c7e1e1d2f5a4b3c2d",
+      measurementId: "G-5X7Y2T8Z9Q"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Service Worker for Offline Mode
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').then(() => console.log('Service Worker Registered'));
+    }
+
+    // IndexedDB Setup
+    class IDB {
+      static async init() {
+        return await new Promise((resolve, reject) => {
+          const req = indexedDB.open('SmartHubDB', 12);
+          req.onupgradeneeded = e => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('bots')) db.createObjectStore('bots', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('users')) db.createObjectStore('users', { keyPath: 'email' });
+            if (!db.objectStoreNames.contains('support')) db.createObjectStore('support', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('tracking')) db.createObjectStore('tracking', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('marketplace')) db.createObjectStore('marketplace', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('collab')) db.createObjectStore('collab', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('analytics')) db.createObjectStore('analytics', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('chat')) db.createObjectStore('chat', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('versions')) db.createObjectStore('versions', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('challenges')) db.createObjectStore('challenges', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('battles')) db.createObjectStore('battles', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('showcase')) db.createObjectStore('showcase', { keyPath: 'id' });
+          };
+          req.onsuccess = e => resolve(e.target.result);
+          req.onerror = e => reject(new Error(`IndexedDB error: ${e.target.error.message}`));
+        });
+      }
+
+      static async batchSet(store, operations) {
+        const db = await IDB.init();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction([store], 'readwrite');
+          const storeObj = tx.objectStore(store);
+          operations.forEach(op => storeObj.put(op));
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(new Error(`Batch set failed: ${tx.error}`));
+        });
+      }
+
+      static async get(store, key) {
+        const db = await IDB.init();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction([store], 'readonly');
+          const storeObj = tx.objectStore(store);
+          const req = storeObj.get(key);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(new Error(`Get failed: ${req.error}`));
+        });
+      }
+
+      static async getAll(store) {
+        const db = await IDB.init();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction([store], 'readonly');
+          const storeObj = tx.objectStore(store);
+          const req = storeObj.getAll();
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(new Error(`Get all failed: ${req.error}`));
+        });
+      }
+    }
+
+    // Constants
+    const updates = [
+      { message: "Added bot battles and daily challenges", type: "feature", timestamp: Date.now() },
+      { message: "Introduced real-time collaborative coding", type: "feature", timestamp: Date.now() },
+      { message: "Enhanced analytics with heat maps", type: "feature", timestamp: Date.now() }
+    ];
+
+    const badges = [
+      { name: "First Bot", criteria: "Create your first bot", points: 50, color: "#FF6F61" },
+      { name: "Collaborator", criteria: "Invite a user to collab", points: 100, color: "#33B5FF" },
+      { name: "Bot Master", criteria: "Create 5 bots", points: 200, color: "#D4A5FF" },
+      { name: "Challenge Master", criteria: "Complete 3 daily challenges", points: 150, color: "#FFAA33" },
+      { name: "Battle Champion", criteria: "Win 3 bot battles", points: 200, color: "#00FFAA" }
+    ];
+
+    const dailyChallenges = [
+      { id: "1", description: "Create a bot that fetches a meme", reward: 50 },
+      { id: "2", description: "Collaborate with another user", reward: 75 },
+      { id: "3", description: "Test a bot in the Playground", reward: 30 }
+    ];
+
+    // AI Functions (Simulated)
+    function predictBotSuccess(description) {
+      const keywords = ['weather', 'meme', 'api', 'image'];
+      let score = 50;
+      keywords.forEach(kw => { if (description.toLowerCase().includes(kw)) score += 10; });
+      return Math.min(score, 99);
+    }
+
+    async function suggestCodeCompletion(code) {
+      if (code.includes('fetch')) return 'Try caching API results for better performance.';
+      if (code.includes('console.log')) return 'Consider using structured logging for debugging.';
+      return 'Looks good! Add error handling for robustness.';
+    }
+
+    async function debugCode(code) {
+      if (!code.includes('try')) return '<p style="color: #FF3333;">Add try-catch for error handling.</p>';
+      if (code.includes('fetch') && !code.includes('await')) return '<p style="color: #FF3333;">Missing await for fetch call.</p>';
+      return '<p style="color: #00FFAA;">No issues detected!</p>';
+    }
+
+    async function reviewCode(code) {
+      let review = '';
+      if (!code.includes('try')) review += '<p>Add try-catch for error handling.</p>';
+      if (code.includes('fetch') && !code.includes('await')) review += '<p>Missing await for fetch call.</p>';
+      if (!code.includes('return')) review += '<p>Ensure the function returns a value.</p>';
+      if (code.length > 500) review += '<p>Code is lengthy; consider modularizing.</p>';
+      return review || '<p>No major issues found. Well-structured code!</p>';
+    }
+
+    function analyzeSentiment(text) {
+      const positiveWords = ['good', 'great', 'awesome'];
+      const negativeWords = ['bad', 'error', 'fail'];
+      let score = 0;
+      positiveWords.forEach(word => { if (text.toLowerCase().includes(word)) score += 1; });
+      negativeWords.forEach(word => { if (text.toLowerCase().includes(word)) score -= 1; });
+      return score >= 0 ? 'sentiment-positive' : 'sentiment-negative';
+    }
+
+    function suggestOptimization(code) {
+      let suggestions = [];
+      if (code.includes('fetch') && !code.includes('cache')) suggestions.push('Add caching to reduce API calls.');
+      if (code.includes('for') && code.includes('fetch')) suggestions.push('Batch API calls to improve performance.');
+      if (code.length > 500) suggestions.push('Modularize code for better maintainability.');
+      return suggestions.length ? suggestions.join('<br>') : 'No optimization suggestions.';
+    }
+
+    // Loading Screen
+    let progress = 0;
+    const progressBar = document.getElementById('progress');
+    const loadingInterval = setInterval(() => {
+      progress += 10;
+      progressBar.style.width = `${progress}%`;
+      if (progress >= 100) {
+        clearInterval(loadingInterval);
+        document.getElementById('loading-screen').classList.add('hidden');
+        document.getElementById('login-modal').classList.remove('hidden');
+      }
+    }, 300);
+
+    // Modal Navigation
+    function closeAllModals() {
+      document.querySelectorAll('.modal').forEach(modal => modal.classList.add('hidden'));
+    }
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        closeAllModals();
+        const modalId = link.dataset.modal;
+        document.getElementById(modalId).classList.remove('hidden');
+        if (modalId === 'dashboard-modal') loadDashboard();
+        else if (modalId === 'bots-modal') loadBotsPage();
+        else if (modalId === 'inspiration-modal') loadInspirationLab();
+        else if (modalId === 'builder-modal') setupBotBuilder();
+        else if (modalId === 'workshop-modal') loadAIWorkshop();
+        else if (modalId === 'editor-modal') loadEditor();
+        else if (modalId === 'playground-modal') loadPlayground();
+        else if (modalId === 'creators-modal') loadCreatorsHub();
+        else if (modalId === 'collab-modal') loadCollabHub();
+        else if (modalId === 'voice-modal') loadVoiceCommand();
+        else if (modalId === 'analytics-modal') loadAnalytics();
+        else if (modalId === 'account-modal') loadAccount();
+        else if (modalId === 'boss-modal') loadBossView();
+        speak(`Opened ${modalId.replace('-modal', '')} section.`);
+      });
+    });
+
+    document.querySelectorAll('.close-modal').forEach(btn => {
+      btn.addEventListener('click', () => closeAllModals());
+    });
+
+    // Authentication
+    document.getElementById('sign-up-btn').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const sixDigit = document.getElementById('six-digit').value;
+      const fourDigit = document.getElementById('four-digit').value;
+      await signUp(email, username, password, sixDigit, fourDigit);
+    });
+
+    document.getElementById('sign-in-btn').addEventListener('click', async () => {
+      const loginId = document.getElementById('email').value || document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const sixDigit = document.getElementById('six-digit').value;
+      const fourDigit = document.getElementById('four-digit').value;
+      await signIn(loginId, password, sixDigit, fourDigit);
+    });
+
+    document.getElementById('forgot-password').addEventListener('click', () => {
+      closeAllModals();
+      document.getElementById('recovery-modal').classList.remove('hidden');
+    });
+
+    document.getElementById('recover-btn').addEventListener('click', recoverPassword);
+    document.getElementById('contact-support').addEventListener('click', () => {
+      closeAllModals();
+      document.getElementById('support-modal').classList.remove('hidden');
+    });
+    document.getElementById('submit-support').addEventListener('click', submitSupportTicket);
+
+    async function signUp(email, username, password, sixDigit, fourDigit) {
+      try {
+        document.getElementById('login-spinner').classList.remove('hidden');
+        if (!email && !username) throw new Error('Email or username required');
+        if (password.length < 8) throw new Error('Password must be at least 8 characters');
+        if (!/^\d{6}$/.test(sixDigit)) throw new Error('6-digit code must be exactly 6 digits');
+        if (!/^\d{4}$/.test(fourDigit)) throw new Error('4-digit code must be exactly 4 digits');
+        const userByEmail = email ? await IDB.get('users', email) : null;
+        const userByUsername = username ? await IDB.get('users', username) : null;
+        if (userByEmail || userByUsername) throw new Error('Email or username already registered');
+        const user = {
+          email: email || username,
+          username,
+          password,
+          sixDigit,
+          fourDigit,
+          createdAt: Date.now(),
+          points: 0,
+          level: 1,
+          xp: 0,
+          role: 'user',
+          badges: [],
+          passwordChanges: [],
+          modalLayouts: {}
+        };
+        await IDB.batchSet('users', [user]);
+        localStorage.setItem('currentUser', email || username);
+        db.ref('users/' + (email || username).replace(/[^a-zA-Z0-9]/g, '')).set(user);
+        showToast('Signed up!');
+        document.getElementById('login-modal').classList.add('hidden');
+        showWelcome();
+      } catch (error) {
+        document.getElementById('auth-error').textContent = error.message;
+        document.getElementById('auth-error').classList.remove('hidden');
+        showToast(`Sign-up failed: ${error.message}`);
+      } finally {
+        document.getElementById('login-spinner').classList.add('hidden');
+      }
+    }
+
+    async function signIn(loginId, password, sixDigit, fourDigit) {
+      try {
+        document.getElementById('login-spinner').classList.remove('hidden');
+        if (!loginId || !password) throw new Error('Login ID and password required');
+        if (!/^\d{6}$/.test(sixDigit)) throw new Error('6-digit code must be exactly 6 digits');
+        if (!/^\d{4}$/.test(fourDigit)) throw new Error('4-digit code must be exactly 4 digits');
+        let user = await IDB.get('users', loginId);
+        if (!user) {
+          const users = await IDB.getAll('users');
+          user = users.find(u => u.username === loginId || u.email === loginId);
+        }
+        if (!user) throw new Error('User not found');
+        if (user.password !== password) throw new Error('Wrong password');
+        if (user.sixDigit !== sixDigit || user.fourDigit !== fourDigit) throw new Error('Invalid codes');
+        localStorage.setItem('currentUser', user.email);
+        showToast('Signed in!');
+        document.getElementById('login-modal').classList.add('hidden');
+        document.getElementById('sidebar').classList.remove('hidden');
+        document.getElementById('notification-bell').classList.remove('hidden');
+        showWelcome();
+        if (user.email === 'boss@smarthub.com') {
+          document.getElementById('boss-link').classList.remove('hidden');
+        }
+        loadNotifications();
+      } catch (error) {
+        document.getElementById('auth-error').textContent = error.message;
+        document.getElementById('auth-error').classList.remove('hidden');
+        showToast(`Sign-in failed: ${error.message}`);
+      } finally {
+        document.getElementById('login-spinner').classList.add('hidden');
+      }
+    }
+
+    async function recoverPassword() {
+      const sixDigit = document.getElementById('recovery-six-digit').value;
+      const fourDigit = document.getElementById('recovery-four-digit').value;
+      const email = localStorage.getItem('currentUser');
+      const user = await IDB.get('users', email);
+      if (user.sixDigit === sixDigit && user.fourDigit === fourDigit) {
+        const newPassword = prompt('Enter new password (min 8 chars):');
+        if (newPassword.length < 8) {
+          document.getElementById('recovery-error').textContent = 'Password must be at least 8 characters';
+          document.getElementById('recovery-error').classList.remove('hidden');
+          return;
+        }
+        user.passwordChanges.push({ oldPassword: user.password, newPassword, timestamp: Date.now() });
+        user.password = newPassword;
+        await IDB.batchSet('users', [user]);
+        db.ref('users/' + email.replace(/[^a-zA-Z0-9]/g, '')).update(user);
+        showToast('Password updated!');
+        document.getElementById('recovery-modal').classList.add('hidden');
+      } else {
+        document.getElementById('recovery-error').textContent = 'Codes do not match';
+        document.getElementById('recovery-error').classList.remove('hidden');
+      }
+    }
+
+    async function submitSupportTicket() {
+      const ticket = {
+        id: Date.now().toString(),
+        username: document.getElementById('support-username').value,
+        name: document.getElementById('support-name').value,
+        email: document.getElementById('support-email').value,
+        number: document.getElementById('support-number').value,
+        message: document.getElementById('support-message').value,
+        timestamp: Date.now()
+      };
+      await IDB.batchSet('support', [ticket]);
+      db.ref('support/' + ticket.id).set(ticket);
+      showToast('Support ticket submitted!');
+      document.getElementById('support-modal').classList.add('hidden');
+      logActivity(`Submitted support ticket: ${ticket.message}`);
+    }
+
+    function showWelcome() {
+      const welcomeModal = document.getElementById('welcome-modal');
+      welcomeModal.classList.remove('hidden');
+      const updatesDiv = document.getElementById('welcome-updates');
+      updates.forEach(update => {
+        const p = document.createElement('p');
+        p.innerHTML = `<b>${update.type.charAt(0).toUpperCase() + update.type.slice(1)}:</b> ${update.message}`;
+        updatesDiv.appendChild(p);
+      });
+      document.getElementById('dismiss-welcome').addEventListener('click', () => {
+        welcomeModal.classList.add('hidden');
+        document.getElementById('dashboard-modal').classList.remove('hidden');
+        loadDashboard();
+      });
+      speak('Welcome to Smart Hub Ultra! Check out the recent updates.');
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+      speak(message);
+    }
+
+    async function updateUserPoints(points) {
+      const email = localStorage.getItem('currentUser');
+      const user = await IDB.get('users', email);
+      user.points = (user.points || 0) + points;
+      user.xp = (user.xp || 0) + points;
+      const levelThreshold = user.level * 100;
+      if (user.xp >= levelThreshold) {
+        user.level += 1;
+        user.xp = 0;
+        showToast(`Leveled up to ${user.level}!`);
+      }
+      await IDB.batchSet('users', [user]);
+      db.ref('users/' + email.replace(/[^a-zA-Z0-9]/g, '')).update(user);
+      checkBadges();
+    }
+
+    async function checkBadges() {
+      const email = localStorage.getItem('currentUser');
+      const user = await IDB.get('users', email);
+      const bots = await IDB.getAll('bots');
+      const userBots = bots.filter(b => b.creator === email);
+      const collabs = await IDB.getAll('collab');
+      const challenges = await IDB.getAll('challenges');
+      const battles = await IDB.getAll('battles');
+      user.badges = user.badges || [];
+      if (userBots.length >= 1 && !user.badges.includes('First Bot')) {
+        user.badges.push('First Bot');
+        user.points += 50;
+        showToast('Earned badge: First Bot!');
+      }
+      if (collabs.some(c => c.invitedBy === email) && !user.badges.includes('Collaborator')) {
+        user.badges.push('Collaborator');
+        user.points += 100;
+        showToast('Earned badge: Collaborator!');
+      }
+      if (userBots.length >= 5 && !user.badges.includes('Bot Master')) {
+        user.badges.push('Bot Master');
+        user.points += 200;
+        showToast('Earned badge: Bot Master!');
+      }
+      if (challenges.filter(c => c.user === email).length >= 3 && !user.badges.includes('Challenge Master')) {
+        user.badges.push('Challenge Master');
+        user.points += 150;
+        showToast('Earned badge: Challenge Master!');
+      }
+      if (battles.filter(b => b.winner === email).length >= 3 && !user.badges.includes('Battle Champion')) {
+        user.badges.push('Battle Champion');
+        user.points += 200;
+        showToast('Earned badge: Battle Champion!');
+      }
+      await IDB.batchSet('users', [user]);
+      db.ref('users/' + email.replace(/[^a-zA-Z0-9]/g, '')).update(user);
+    }
+
+    // Accessibility: Text-to-Speech
+    function speak(text) {
+      if (localStorage.getItem('narration') === 'true') {
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Notifications
+    function loadNotifications() {
+      const notificationList = document.getElementById('notification-list');
+      const notificationCount = document.getElementById('notification-count');
+      notificationList.innerHTML = '';
+      updates.forEach(update => {
+        const p = document.createElement('p');
+        p.innerHTML = `<b>${update.type.charAt(0).toUpperCase() + update.type.slice(1)}:</b> ${update.message}`;
+        notificationList.appendChild(p);
+      });
+      notificationCount.textContent = updates.length;
+      notificationCount.classList.toggle('hidden', updates.length === 0);
+      document.getElementById('notification-icon').addEventListener('click', () => {
+        document.getElementById('notification-dropdown').classList.toggle('hidden');
+      });
+    }
+
+    // Activity Logging
+    async function logActivity(action) {
+      const log = {
+        id: Date.now().toString(),
+        user: localStorage.getItem('currentUser'),
+        action,
+        timestamp: Date.now()
+      };
+      await IDB.batchSet('tracking', [log]);
+      db.ref('tracking/' + log.id).set(log);
+      if (document.getElementById('activity-feed')) {
+        const feed = document.getElementById('activity-feed');
+        const p = document.createElement('p');
+        p.textContent = `${log.user}: ${log.action} at ${new Date(log.timestamp).toLocaleTimeString()}`;
+        feed.prepend(p);
+      }
+    }
+
+    // Dashboard
+    async function loadDashboard() {
+      const bots = await IDB.getAll('bots');
+      document.getElementById('bot-status').textContent = `${bots.length} active`;
+      try {
+        const res = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=4fc179285e1139b621267e810bb9ddcd');
+        const data = await res.json();
+        const weather = `${data.weather[0].description}, ${Math.round(data.main.temp - 273.15)}°C`;
+        document.getElementById('weather').textContent = weather;
+      } catch {
+        document.getElementById('weather').textContent = 'Weather unavailable';
+      }
+      document.getElementById('ai-insights').textContent = 'Optimize bot runtime with caching.';
+      document.querySelectorAll('.dashboard-widget').forEach(widget => {
+        widget.addEventListener('click', () => {
+          const action = widget.dataset.action;
+          closeAllModals();
+          if (action === 'view-bots') {
+            document.getElementById('bots-modal').classList.remove('hidden');
+            loadBotsPage();
+          } else if (action === 'view-insights') {
+            showToast('Insights: Cache API calls for speed');
+          } else if (action === 'create-bot') {
+            document.getElementById('bots-modal').classList.remove('hidden');
+            loadBotsPage();
+          }
+          logActivity(`Clicked dashboard widget: ${action}`);
+        });
+      });
+
+      const user = await IDB.get('users', localStorage.getItem('currentUser'));
+      if (!user.hasTakenTour) {
+        document.getElementById('dashboard-tour').classList.remove('hidden');
+        document.getElementById('next-tour-step').addEventListener('click', () => {
+          document.getElementById('dashboard-tour').classList.add('hidden');
+          user.hasTakenTour = true;
+          IDB.batchSet('users', [user]);
+          db.ref('users/' + user.email.replace(/[^a-zA-Z0-9]/g, '')).update(user);
+        });
+      }
+
+      const challengeList = document.getElementById('challenge-list');
+      dailyChallenges.forEach(challenge => {
+        const div = document.createElement('div');
+        div.className = 'bot-item';
+        div.innerHTML = `
+          <p>${challenge.description}</p>
+          <p>Reward: ${challenge.reward} XP</p>
+          <button class="btn blue-glow complete-challenge" data-id="${challenge.id}">Complete</button>
+        `;
+        challengeList.appendChild(div);
+        div.querySelector('.complete-challenge').addEventListener('click', async () => {
+          const completed = { id: challenge.id, user: localStorage.getItem('currentUser'), timestamp: Date.now() };
+          await IDB.batchSet('challenges', [completed]);
+          db.ref('challenges/' + challenge.id + '/' + completed.user).set(completed);
+          updateUserPoints(challenge.reward);
+          showToast(`Completed challenge: ${challenge.description}`);
+          logActivity(`Completed challenge: ${challenge.description}`);
+        });
+      });
+    }
+
+    // Bots
+    async function loadBotsPage() {
+      const botList = document.getElementById('bot-list');
+      const bots = await IDB.getAll('bots');
+      botList.innerHTML = '';
+      bots.forEach(bot => {
+        const item = document.createElement('div');
+        item.className = 'bot-item';
+        item.innerHTML = `
+          <h3>${bot.name}</h3>
+          <p><b>Purpose:</b> ${bot.purpose}</p>
+          <p><b>Creator:</b> ${bot.creator}</p>
+          <p><b>Predicted Success:</b> <span style="color: ${bot.predictedSuccess > 75 ? '#00FFAA' : '#FF3333'}">${bot.predictedSuccess || 99}%</span></p>
+          <p><b>Optimizations:</b> ${suggestOptimization(bot.code)}</p>
+          <button class="btn blue-glow run-bot">Run</button>
+          <button class="btn green-glow edit-bot">Edit</button>
+          <button class="btn orange-glow publish-bot">Publish to Marketplace</button>
+        `;
+        botList.appendChild(item);
+        item.querySelector('.run-bot').addEventListener('click', async () => {
+          const func = new Function('return ' + bot.code)();
+          const result = await func();
+          showToast(`Result: ${result}`);
+          localStorage.setItem('editingBot', JSON.stringify(bot));
+          closeAllModals();
+          document.getElementById('playground-modal').classList.remove('hidden');
+          loadPlayground();
+        });
+        item.querySelector('.edit-bot').addEventListener('click', () => {
+          localStorage.setItem('editingBot', JSON.stringify(bot));
+          closeAllModals();
+          document.getElementById('editor-modal').classList.remove('hidden');
+          loadEditor();
+        });
+        item.querySelector('.publish-bot').addEventListener('click', async () => {
+          const marketplaceBot = { id: bot.id, name: bot.name, purpose: bot.purpose, code: bot.code, creator: bot.creator, reviews: [], rating: 0 };
+          await IDB.batchSet('marketplace', [marketplaceBot]);
+          db.ref('marketplace/' + bot.id).set(marketplaceBot);
+          showToast(`Published ${bot.name} to Marketplace`);
+          loadMarketplace();
+        });
+      });
+      loadMarketplace();
+
+      document.getElementById('use-wizard').addEventListener('change', e => {
+        document.getElementById('creation-wizard').classList.toggle('hidden', !e.target.checked);
+      });
+
+      document.getElementById('submit-wizard').addEventListener('click', async () => {
+        const desc = document.getElementById('bot-description').value;
+        const bot = {
+          id: Date.now().toString(),
+          name: `Bot-${Date.now()}`,
+          purpose: desc,
+          functionality: 'Wizard-created bot',
+          predictedSuccess: predictBotSuccess(desc),
+          input: desc,
+          code: `async () => { return "Bot executed: ${desc}"; }`,
+          creator: localStorage.getItem('currentUser')
+        };
+        await IDB.batchSet('bots', [bot]);
+        db.ref('bots/' + bot.id).set(bot);
+        showToast(`Created ${bot.name}`);
+        updateUserPoints(20);
+        logActivity(`Created bot: ${bot.name}`);
+        loadBotsPage();
+      });
+
+      document.getElementById('voice-input-btn').addEventListener('click', () => {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.onresult = async e => {
+          const idea = e.results[0][0].transcript;
+          const bot = {
+            id: Date.now().toString(),
+            name: `VoiceBot-${Date.now()}`,
+            purpose: idea,
+            functionality: 'Voice-created bot',
+            predictedSuccess: predictBotSuccess(idea),
+            input: idea,
+            code: `async () => { return "Voice bot executed: ${idea}"; }`,
+            creator: localStorage.getItem('currentUser')
+          };
+          await IDB.batchSet('bots', [bot]);
+          db.ref('bots/' + bot.id).set(bot);
+          showToast(`Created ${bot.name}`);
+          updateUserPoints(20);
+          logActivity(`Created voice bot: ${bot.name}`);
+          loadBotsPage();
+        };
+        recognition.start();
+      });
+
+      document.getElementById('text-input-btn').addEventListener('click', async () => {
+        const idea = document.getElementById('text-input').value;
+        const bot = {
+          id: Date.now().toString(),
+          name: `TextBot-${Date.now()}`,
+          purpose: idea,
+          functionality: 'Text-created bot',
+          predictedSuccess: predictBotSuccess(idea),
+          input: idea,
+          code: `async () => { return "Text bot executed: ${idea}"; }`,
+          creator: localStorage.getItem('currentUser')
+        };
+        await IDB.batchSet('bots', [bot]);
+        db.ref('bots/' + bot.id).set(bot);
+        showToast(`Created ${bot.name}`);
+        updateUserPoints(20);
+        logActivity(`Created text bot: ${bot.name}`);
+        loadBotsPage();
+      });
+
+      document.getElementById('fusion-btn').addEventListener('click', async () => {
+        const bots = await IDB.getAll('bots');
+        if (bots.length < 2) {
+          showToast('Need at least 2 bots to fuse');
+          return;
+        }
+        const bot1 = bots[0];
+        const bot2 = bots[1];
+        const fusedBot = {
+          id: Date.now().toString(),
+          name: `FusedBot-${Date.now()}`,
+          purpose: `Fusion of ${bot1.name} and ${bot2.name}`,
+          functionality: 'Fused bot',
+          predictedSuccess: predictBotSuccess(`${bot1.purpose} + ${bot2.purpose}`),
+          input: `${bot1.purpose} + ${bot2.purpose}`,
+          code: `async () => { return "Fused bot executed: ${bot1.purpose} and ${bot2.purpose}"; }`,
+          creator: localStorage.getItem('currentUser')
+        };
+        await IDB.batchSet('bots', [fusedBot]);
+        db.ref('bots/' + fusedBot.id).set(fusedBot);
+        showToast(`Created ${fusedBot.name}`);
+        updateUserPoints(30);
+        logActivity(`Fused bot: ${fusedBot.name}`);
+        loadBotsPage();
+      });
+    }
+
+    async function loadMarketplace() {
+      const marketplace = document.getElementById('marketplace');
+      const featuredBots = document.getElementById('featured-bots');
+      if (!marketplace || !featuredBots) return;
+      marketplace.innerHTML = '';
+      featuredBots.innerHTML = '';
+      const bots = await IDB.getAll('marketplace');
+      const topBots = bots.sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 3);
+      topBots.forEach(bot => {
+        const item = document.createElement('div');
+        item.className = 'bot-item featured-bot';
+        item.innerHTML = `
+          <h3>${bot.name}</h3>
+          <p><b>Creator:</b> ${bot.creator}</p>
+          <p><b>Purpose:</b> ${bot.purpose}</p>
+          <p><b>Rating:</b> ${bot.rating || 0}/5</p>
+          <button class="btn blue-glow import-bot">Import</button>
+        `;
+        featuredBots.appendChild(item);
+        item.querySelector('.import-bot').addEventListener('click', async () => {
+          const newBot = { ...bot, id: Date.now().toString(), creator: localStorage.getItem('currentUser') };
+          await IDB.batchSet('bots', [newBot]);
+          db.ref('bots/' + newBot.id).set(newBot);
+          showToast(`Imported ${bot.name}`);
+          loadBotsPage();
+          checkBadges();
+        });
+      });
+      bots.forEach(bot => {
+        const item = document.createElement('div');
+        item.className = 'bot-item';
+        item.innerHTML = `
+          <h3>${bot.name}</h3>
+          <p><b>Creator:</b> ${bot.creator}</p>
+          <p><b>Purpose:</b> ${bot.purpose}</p>
+          <p><b>Rating:</b> ${bot.rating || 0}/5</p>
+          <button class="btn blue-glow import-bot">Import</button>
+          <input type="number" class="rating-input" min="1" max="5" placeholder="Rate 1-5">
+          <button class="btn green-glow rate-bot">Rate</button>
+          <textarea class="review-input" placeholder="Leave a review..."></textarea>
+          <button class="btn orange-glow review-bot">Review</button>
+          <div class="reviews"></div>
+        `;
+        marketplace.appendChild(item);
+        item.querySelector('.import-bot').addEventListener('click', async () => {
+          const newBot = { ...bot, id: Date.now().toString(), creator: localStorage.getItem('currentUser') };
+          await IDB.batchSet('bots', [newBot]);
+          db.ref('bots/' + newBot.id).set(newBot);
+          showToast(`Imported ${bot.name}`);
+          loadBotsPage();
+          checkBadges();
+        });
+        item.querySelector('.rate-bot').addEventListener('click', async () => {
+          const rating = parseInt(item.querySelector('.rating-input').value);
+          if (rating < 1 || rating > 5) {
+            showToast('Rating must be between 1 and 5');
+            return;
+          }
+          bot.rating = ((bot.rating || 0) + rating) / (bot.reviews?.length + 1 || 1);
+          await IDB.batchSet('marketplace', [bot]);
+          db.ref('marketplace/' + bot.id).update({ rating: bot.rating });
+          showToast(`Rated ${bot.name} ${rating}/5`);
+          loadMarketplace();
+        });
+        item.querySelector('.review-bot').addEventListener('click', async () => {
+          const review = item.querySelector('.review-input').value;
+          if (!review) return;
+          bot.reviews = bot.reviews || [];
+          bot.reviews.push({ user: localStorage.getItem('currentUser'), text: review, timestamp: Date.now() });
+          await IDB.batchSet('marketplace', [bot]);
+          db.ref('marketplace/' + bot.id).update({ reviews: bot.reviews });
+          showToast(`Reviewed ${bot.name}`);
+          loadMarketplace();
+        });
+        const reviewsDiv = item.querySelector('.reviews');
+        bot.reviews?.forEach(review => {
+          const p = document.createElement('p');
+          p.textContent = `${review.user}: ${review.text}`;
+          reviewsDiv.appendChild(p);
+        });
+      });
+    }
+
+    // Inspiration Lab
+    async function loadInspirationLab() {
+      const ideas = [
+        { title: 'Meme Bot', desc: 'Fetches memes from Giphy based on keywords.', code: `async () => {
+          const res = await fetch('https://api.giphy.com/v1/gifs/search?api_key=kOrIThLFfVdinZ3ORGBDmmX6cnnVWTzK&q=funny');
+          const data = await res.json();
+          return data.data[0].images.fixed_height.url;
+        }` },
+        { title: 'Weather Bot', desc: 'Fetches real-time weather data.', code: `async () => {
+          const res = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=4fc179285e1139b621267e810bb9ddcd');
+          const data = await res.json();
+          return \`Weather in London: \${data.weather[0].description}, \${Math.round(data.main.temp - 273.15)}°C\`;
+        }` }
+      ];
+
+      const ideaList = document.getElementById('inspiration-ideas');
+      ideaList.innerHTML = '';
+      ideas.forEach(idea => {
+        const item = document.createElement('div');
+        item.className = 'bot-item';
+        item.innerHTML = `
+          <h3>${idea.title}</h3>
+          <p>${idea.desc}</p>
+          <button class="btn blue-glow use-idea">Use Idea</button>
+        `;
+        ideaList.appendChild(item);
+        item.querySelector('.use-idea').addEventListener('click', async () => {
+          const bot = {
+            id: Date.now().toString(),
+            name: idea.title,
+            purpose: idea.desc,
+            functionality: 'Inspired bot',
+            predictedSuccess: predictBotSuccess(idea.desc),
+            input: idea.desc,
+            code: idea.code,
+            creator: localStorage.getItem('currentUser')
+          };
+          await IDB.batchSet('bots', [bot]);
+          db.ref('bots/' + bot.id).set(bot);
+          showToast(`Created ${bot.name}`);
+          updateUserPoints(20);
+          checkBadges();
+          closeAllModals();
+          document.getElementById('bots-modal').classList.remove('hidden');
+          loadBotsPage();
+        });
+      });
+
+      document.getElementById('meme-search').addEventListener('input', async e => {
+        const query = e.target.value;
+        if (!query) return;
+        const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=kOrIThLFfVdinZ3ORGBDmmX6cnnVWTzK&q=${query}`);
+        const data = await res.json();
+        const url = data.data[0]?.images.fixed_height.url || 'No meme found';
+        const item = document.createElement('div');
+        item.className = 'bot-item';
+        item.innerHTML = `
+          <h3>${query} Meme</h3>
+          <p>Fetched from Giphy</p>
+          <img src="${url}" class="meme-preview">
+          <button class="btn blue-glow use-idea">Use Idea</button>
+        `;
+        ideaList.prepend(item);
+      });
+
+      document.getElementById('generate-idea').addEventListener('click', async () => {
+        const res = await fetch('https://api.giphy.com/v1/gifs/trending?api_key=kOrIThLFfVdinZ3ORGBDmmX6cnnVWTzK');
+        const data = await res.json();
+        const url = data.data[0].images.fixed_height.url;
+        const item = document.createElement('div');
+        item.className = 'bot-item';
+        item.innerHTML = `
+          <h3>Trending Meme Bot</h3>
+          <p>Fetched from Giphy Trends</p>
+          <img src="${url}" class="meme-preview">
+          <button class="btn blue-glow use-idea">Use Idea</button>
+        `;
+        ideaList.prepend(item);
+      });
+    }
+
+    // Bot Builder
+    async function setupBotBuilder() {
+      const components = document.querySelectorAll('.component');
+      const workspace = document.getElementById('builder-workspace');
+      let nodes = [];
+
+      components.forEach(comp => {
+        comp.addEventListener('dragstart', e => {
+          e.dataTransfer.setData('type', comp.dataset.type);
+        });
+      });
+
+      workspace.addEventListener('dragover', e => e.preventDefault());
+      workspace.addEventListener('drop', e => {
+        e.preventDefault();
+        const type = e.dataTransfer.getData('type');
+        const node = document.createElement('div');
+        node.className = 'node';
+        node.textContent = type;
+        node.dataset.type = type;
+        workspace.appendChild(node);
+        nodes.push({ type, id: Date.now() });
+      });
+
+      document.getElementById('build-bot').addEventListener('click', async () => {
+        let code = 'async () => {';
+        nodes.forEach(node => {
+          if (node.type === 'action') code += ` console.log('Action executed');`;
+          else if (node.type === 'condition') code += ` if (true) { console.log('Condition met'); }`;
+          else if (node.type === 'api') code += ` const res = await fetch('https://api.example.com');`;
+          else if (node.type === 'meme') code += ` const res = await fetch('https://api.giphy.com/v1/gifs/search?api_key=kOrIThLFfVdinZ3ORGBDmmX6cnnVWTzK&q=funny'); const data = await res.json(); return data.data[0].images.fixed_height.url;`;
+          else if (node.type === 'image') code += ` const res = await fetch('https://api.unsplash.com/photos/random?query=nature&client_id=tL5Z9kXzJ6p8iN7vQ2mW3rY4uT8xL9oP0qR1sE2wK3j'); const data = await res.json(); return data.urls.small;`;
+        });
+        code += ' return "Bot executed"; }';
+        const bot = {
+          id: Date.now().toString(),
+          name: `BuilderBot-${Date.now()}`,
+          purpose: 'Visually built bot',
+          functionality: 'Custom logic',
+          predictedSuccess: predictBotSuccess('Visually built bot'),
+          input: 'Drag-and-drop',
+          code,
+          creator: localStorage.getItem('currentUser')
+        };
+        await IDB.batchSet('bots', [bot]);
+        db.ref('bots/' + bot.id).set(bot);
+        showToast(`Created ${bot.name}`);
+        updateUserPoints(30);
+        checkBadges();
+        closeAllModals();
+        document.getElementById('bots-modal').classList.remove('hidden');
+        loadBotsPage();
+      });
+    }
+
+    // AI Workshop
+    async function loadAIWorkshop() {
+      const suggestions = document.getElementById('workshop-suggestions');
+      const codeReview = document.getElementById('code-review');
+      suggestions.innerHTML = '';
+      codeReview.innerHTML = '';
+
+      document.getElementById('debug-code').addEventListener('click', async () => {
+        const code = document.getElementById('workshop-code').value;
+        const debugResult = await debugCode(code);
+        suggestions.innerHTML = debugResult;
+      });
+
+      document.getElementById('review-code').addEventListener('click', async () => {
+        const code = document.getElementById('workshop-code').value;
+        const reviewResult = await reviewCode(code);
+        codeReview.innerHTML = reviewResult;
+      });
+    }
+
+    // Editor
+    async function loadEditor() {
+      const bot = JSON.parse(localStorage.getItem('editingBot') || '{}');
+      const editor = document.getElementById('code-editor');
+      const suggestions = document.getElementById('code-suggestions');
+      const versionHistory = document.getElementById('version-history');
+      editor.value = bot.code || '// Start coding';
+      suggestions.innerHTML = '';
+
+      editor.addEventListener('input', async () => {
+        const code = editor.value;
+        const suggestion = await suggestCodeCompletion(code);
+        suggestions.innerHTML = suggestion;
+      });
+
+      document.getElementById('run-code').addEventListener('click', async () => {
+        const code = editor.value;
+        const output = document.getElementById('code-output');
+        output.innerHTML = 'Running...';
+        const worker = new Worker(URL.createObjectURL(new Blob([`
+          onmessage = async e => {
+            try {
+              const func = new Function('return ' + e.data)();
+              const result = await func();
+              postMessage({ result });
+            } catch (error) {
+              postMessage({ error: error.message });
+            }
+          };
+        `], { type: 'application/javascript' })));
+        worker.onmessage = e => {
+          if (e.data.error) {
+            output.innerHTML = `<span style="color: #FF3333;">Error: ${e.data.error}</span>`;
+          } else {
+            output.innerHTML = `<span style="color: #00FFAA;">Result: ${e.data.result}</span>`;
+          }
+          worker.terminate();
+        };
+        worker.postMessage(code);
+      });
+
+      document.getElementById('save-version').addEventListener('click', async () => {
+        const code = editor.value;
+        const version = {
+          id: Date.now().toString(),
+          botId: bot.id,
+          code,
+          timestamp: Date.now(),
+          creator: localStorage.getItem('currentUser')
+        };
+        await IDB.batchSet('versions', [version]);
+        db.ref('versions/' + bot.id + '/' + version.id).set(version);
+        showToast('Version saved!');
+        loadVersionHistory(bot.id);
+      });
+
+      document.getElementById('share-btn').addEventListener('click', async () => {
+        const code = editor.value;
+        const token = document.getElementById('telegram-token')?.value;
+        const chatId = document.getElementById('telegram-chat-id')?.value;
+        if (token && chatId) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: `Shared code:\n${code}`
+            })
+          });
+          showToast('Code shared on Telegram');
+        } else {
+          showToast('Set Telegram token and chat ID in Account');
+        }
+      });
+
+      document.getElementById('generate-qr').addEventListener('click', () => {
+        const code = editor.value;
+        const qrDiv = document.getElementById('qr-code');
+        qrDiv.innerHTML = '';
+        QRCode.toCanvas(code, { width: 200 }, (err, canvas) => {
+          if (err) throw err;
+          qrDiv.appendChild(canvas);
+        });
+      });
+
+      async function loadVersionHistory(botId) {
+        const versions = await IDB.getAll('versions');
+        const botVersions = versions.filter(v => v.botId === botId);
+        versionHistory.innerHTML = '';
+        botVersions.forEach(version => {
+          const item = document.createElement('div');
+          item.className = 'version-item';
+          item.innerHTML = `
+            <p>Saved at: ${new Date(version.timestamp).toLocaleString()}</p>
+            <button class="btn blue-glow restore-version" data-id="${version.id}">Restore</button>
+          `;
+          versionHistory.appendChild(item);
+          item.querySelector('.restore-version').addEventListener('click', () => {
+            editor.value = version.code;
+            showToast('Version restored');
+          });
+        });
+      }
+      loadVersionHistory(bot.id);
+    }
+
+    // Playground
+    async function loadPlayground() {
+      const bot = JSON.parse(localStorage.getItem('editingBot') || '{}');
+      const playground = document.getElementById('bot-playground');
+      const sentimentAnalysis = document.getElementById('sentiment-analysis');
+      const testLogs = document.getElementById('test-logs');
+      const opponentSelect = document.getElementById('opponent-bot');
+      const battleResults = document.getElementById('battle-results');
+
+      playground.innerHTML = `<p>Running ${bot.name}...</p>`;
+      try {
+        const func = new Function('return ' + bot.code)();
+        const result = await func();
+        playground.innerHTML += `<p style="color: #00FFAA;">Result: ${result}</p>`;
+        const sentiment = analyzeSentiment(result);
+        sentimentAnalysis.classList.remove('hidden');
+        sentimentAnalysis.innerHTML = `<p>Sentiment: <span class="${sentiment}">${sentiment.split('-')[1]}</span></p>`;
+      } catch (error) {
+        playground.innerHTML += `<p style="color: #FF3333;">Error: ${error.message}</p>`;
+        sentimentAnalysis.classList.remove('hidden');
+        sentimentAnalysis.innerHTML = `<p>Sentiment: <span class="sentiment-negative">negative</span></p>`;
+      }
+
+      document.getElementById('test-bot').addEventListener('click', async () => {
+        const input = document.getElementById('test-input').value;
+        const func = new Function('input', `return (async () => { ${bot.code.replace('async () =>', '')} return "Test executed with input: ${input}"; })();`);
+        const result = await func(input);
+        testLogs.innerHTML += `<p>Test Result: ${result}</p>`;
+      });
+
+      const bots = await IDB.getAll('bots');
+      opponentSelect.innerHTML = '<option value="">Select Opponent</option>';
+      bots.filter(b => b.id !== bot.id).forEach(b => {
+        const option = document.createElement('option');
+        option.value = b.id;
+        option.textContent = b.name;
+        opponentSelect.appendChild(option);
+      });
+
+      document.getElementById('start-battle').addEventListener('click', async () => {
+        const opponentId = opponentSelect.value;
+        if (!opponentId) {
+          showToast('Select an opponent!');
+          return;
+        }
+        const opponent = bots.find(b => b.id === opponentId);
+        const botFunc = new Function('return ' + bot.code)();
+        const oppFunc = new Function('return ' + opponent.code)();
+        const botStart = performance.now();
+        await botFunc();
+        const botTime = performance.now() - botStart;
+        const oppStart = performance.now();
+        await oppFunc();
+        const oppTime = performance.now() - oppStart;
+        const winner = botTime < oppTime ? bot.name : opponent.name;
+        battleResults.innerHTML = `
+          <div class="battle-result" style="background: ${winner === bot.name ? '#00FFAA' : '#FF3333'}">
+            <p>${bot.name}: ${botTime.toFixed(2)}ms</p>
+            <p>${opponent.name}: ${oppTime.toFixed(2)}ms</p>
+            <p>Winner: ${winner}</p>
+          </div>
+        `;
+        if (winner === bot.name) {
+          const battle = { id: Date.now().toString(), winner: localStorage.getItem('currentUser'), timestamp: Date.now() };
+          await IDB.batchSet('battles', [battle]);
+          db.ref('battles/' + battle.id).set(battle);
+          checkBadges();
+        }
+      });
+    }
+
+    // Creator’s Hub
+    async function loadCreatorsHub() {
+      const botList = document.getElementById('bot-list');
+      const showcase = document.getElementById('bot-showcase');
+      const trackingLogs = document.getElementById('tracking-logs');
+      const leaderboard = document.getElementById('leaderboard');
+
+      const bots = await IDB.getAll('bots');
+      const userBots = bots.filter(b => b.creator === localStorage.getItem('currentUser'));
+      botList.innerHTML = '';
+      userBots.forEach(bot => {
+        const item = document.createElement('div');
+        item.className = 'bot-item';
+        item.innerHTML = `
+          <h3>${bot.name}</h3>
+          <p>${bot.purpose}</p>
+          <button class="btn blue-glow showcase-bot">Showcase</button>
+        `;
+        botList.appendChild(item);
+        item.querySelector('.showcase-bot').addEventListener('click', async () => {
+          const showcaseItem = { id: bot.id, name: bot.name, purpose: bot.purpose, creator: bot.creator, timestamp: Date.now() };
+          await IDB.batchSet('showcase', [showcaseItem]);
+          db.ref('showcase/' + bot.id).set(showcaseItem);
+          showToast(`${bot.name} added to showcase`);
+          loadShowcase();
+        });
+      });
+
+      async function loadShowcase() {
+        const showcaseItems = await IDB.getAll('showcase');
+        showcase.innerHTML = '';
+        showcaseItems.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'showcase-item';
+          div.innerHTML = `<h3>${item.name}</h3><p>${item.purpose}</p><p>By: ${item.creator}</p>`;
+          showcase.appendChild(div);
+        });
+      }
+      loadShowcase();
+
+      const logs = await IDB.getAll('tracking');
+      trackingLogs.innerHTML = '';
+      logs.forEach(log => {
+        const p = document.createElement('p');
+        p.textContent = `${log.user}: ${log.action} at ${new Date(log.timestamp).toLocaleTimeString()}`;
+        trackingLogs.appendChild(p);
+      });
+
+      const users = await IDB.getAll('users');
+      leaderboard.innerHTML = '';
+      users.sort((a, b) => b.points - a.points).slice(0, 5).forEach(user => {
+        const div = document.createElement('div');
+        div.className = 'bot-item';
+        div.innerHTML = `<p>${user.username || user.email}: ${user.points} points (Level ${user.level})</p>`;
+        leaderboard.appendChild(div);
+      });
+
+      loadMarketplace();
+    }
+
+    // Collab Hub
+    async function loadCollabHub() {
+      const collabEditor = document.getElementById('collab-editor');
+      const codeDiff = document.getElementById('code-diff');
+      const chatMessages = document.getElementById('chat-messages');
+      const bot = JSON.parse(localStorage.getItem('editingBot') || '{}');
+      collabEditor.value = bot.code || '// Start collaborating';
+
+      document.getElementById('invite-user').addEventListener('click', async () => {
+        const email = document.getElementById('collab-user').value;
+        const collab = {
+          id: Date.now().toString(),
+          botId: bot.id,
+          invitedBy: localStorage.getItem('currentUser'),
+          invited: email,
+          code: collabEditor.value,
+          timestamp: Date.now()
+        };
+        await IDB.batchSet('collab', [collab]);
+        db.ref('collab/' + collab.id).set(collab);
+        showToast(`Invited ${email} to collaborate`);
+        checkBadges();
+      });
+
+      db.ref('collab').on('child_changed', snapshot => {
+        const collab = snapshot.val();
+        if (collab.botId === bot.id && collab.invited === localStorage.getItem('currentUser')) {
+          collabEditor.value = collab.code;
+          codeDiff.innerHTML = `<p>Updated by ${collab.invitedBy}</p>`;
+        }
+      });
+
+      collabEditor.addEventListener('input', async () => {
+        const collab = {
+          id: bot.id + '-' + localStorage.getItem('currentUser'),
+          botId: bot.id,
+          invitedBy: localStorage.getItem('currentUser'),
+          invited: localStorage.getItem('currentUser'),
+          code: collabEditor.value,
+          timestamp: Date.now()
+        };
+        await IDB.batchSet('collab', [collab]);
+        db.ref('collab/' + collab.id).set(collab);
+      });
+
+      document.getElementById('collab-chat').classList.remove('hidden');
+      document.getElementById('send-chat').addEventListener('click', async () => {
+        const message = document.getElementById('chat-input').value;
+        if (!message) return;
+        const chat = {
+          id: Date.now().toString(),
+          botId: bot.id,
+          user: localStorage.getItem('currentUser'),
+          text: message,
+          timestamp: Date.now()
+        };
+        await IDB.batchSet('chat', [chat]);
+        db.ref('chat/' + bot.id + '/' + chat.id).set(chat);
+        document.getElementById('chat-input').value = '';
+      });
+
+      db.ref('chat/' + bot.id).on('child_added', snapshot => {
+        const chat = snapshot.val();
+        const div = document.createElement('div');
+        div.className = chat.user === localStorage.getItem('currentUser') ? 'message-user' : 'message-other';
+        div.textContent = `${chat.user}: ${chat.text}`;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      });
+    }
+
+    // Voice Command
+    function loadVoiceCommand() {
+      const startVoice = document.getElementById('start-voice');
+      const voiceOutput = document.getElementById('voice-output');
+      startVoice.addEventListener('click', () => {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        recognition.start();
+        recognition.onresult = async event => {
+          const speechResult = event.results[0][0].transcript;
+          voiceOutput.textContent = `You said: ${speechResult}`;
+          if (speechResult.toLowerCase().includes('create bot')) {
+            const bot = {
+              id: Date.now().toString(),
+              name: `VoiceBot-${Date.now()}`,
+              purpose: speechResult,
+              functionality: 'Voice command bot',
+              predictedSuccess: predictBotSuccess(speechResult),
+              input: speechResult,
+              code: `async () => { return "Voice bot executed: ${speechResult}"; }`,
+              creator: localStorage.getItem('currentUser')
+            };
+            await IDB.batchSet('bots', [bot]);
+            db.ref('bots/' + bot.id).set(bot);
+            showToast(`Created ${bot.name}`);
+            updateUserPoints(20);
+          }
+        };
+        recognition.onerror = event => {
+          voiceOutput.textContent = `Error: ${event.error}`;
+        };
+      });
+    }
+
+    // Analytics
+    async function loadAnalytics() {
+      const analyticsStats = document.getElementById('analytics-stats');
+      const heatmap = document.getElementById('heatmap');
+      const botMetrics = document.getElementById('bot-metrics');
+
+      const bots = await IDB.getAll('bots');
+      const userBots = bots.filter(b => b.creator === localStorage.getItem('currentUser'));
+      analyticsStats.innerHTML = '';
+      const stats = [
+        { label: 'Total Bots', value: userBots.length },
+        { label: 'Avg Success Rate', value: Math.round(userBots.reduce((sum, b) => sum + (b.predictedSuccess || 99), 0) / userBots.length) + '%' },
+        { label: 'Execution Errors', value: userBots.filter(b => b.code.includes('error')).length }
+      ];
+      stats.forEach(stat => {
+        const card = document.createElement('div');
+        card.className = 'stat-card';
+        card.innerHTML = `<p>${stat.label}: ${stat.value}</p>`;
+        analyticsStats.appendChild(card);
+      });
+
+      heatmap.innerHTML = '<p>Heatmap simulation: Bot usage peaks visualized here.</p>';
+      botMetrics.innerHTML = userBots.map(b => `<p>${b.name}: ${b.predictedSuccess || 99}% success</p>`).join('');
+    }
+
+    // Account
+    async function loadAccount() {
+      const user = await IDB.get('users', localStorage.getItem('currentUser'));
+      document.getElementById('account-username').textContent = user.username || 'N/A';
+      document.getElementById('account-email').textContent = user.email;
+      const bots = await IDB.getAll('bots');
+      document.getElementById('account-bots').textContent = bots.filter(b => b.creator === user.email).length;
+      document.getElementById('account-points').textContent = user.points;
+      document.getElementById('account-level').textContent = user.level;
+      document.getElementById('level-progress-fill').style.width = `${(user.xp / (user.level * 100)) * 100}%`;
+      document.getElementById('account-badges').innerHTML = user.badges.map(b => `<span class="achievement" style="background: ${badges.find(badge => badge.name === b)?.color}">${b}</span>`).join('');
+
+      document.getElementById('change-password').addEventListener('click', async () => {
+        const newPassword = document.getElementById('new-password').value;
+        const newSixDigit = document.getElementById('new-six-digit').value;
+        const newFourDigit = document.getElementById('new-four-digit').value;
+        if (newPassword.length < 8 || !/^\d{6}$/.test(newSixDigit) || !/^\d{4}$/.test(newFourDigit)) {
+          showToast('Invalid credentials');
+          return;
+        }
+        user.password = newPassword;
+        user.sixDigit = newSixDigit;
+        user.fourDigit = newFourDigit;
+        user.passwordChanges.push({ oldPassword: user.password, newPassword, timestamp: Date.now() });
+        await IDB.batchSet('users', [user]);
+        db.ref('users/' + user.email.replace(/[^a-zA-Z0-9]/g, '')).update(user);
+        showToast('Credentials updated');
+      });
+
+      document.getElementById('enable-narration').addEventListener('change', e => {
+        localStorage.setItem('narration', e.target.checked);
+      });
+      document.getElementById('enable-narration').checked = localStorage.getItem('narration') === 'true';
+
+      document.getElementById('apply-theme').addEventListener('click', () => {
+        const color = document.getElementById('theme-color').value;
+        document.body.style.background = `linear-gradient(135deg, ${color}, #33B5FF, #D4A5FF)`;
+      });
+    }
+
+    // Boss View
+    async function loadBossView() {
+      const bossUsers = document.getElementById('boss-users');
+      const bossBots = document.getElementById('boss-bots');
+      const bossTickets = document.getElementById('boss-tickets');
+      const bossPerformance = document.getElementById('boss-performance');
+      const activityFeed = document.getElementById('activity-feed');
+
+      const users = await IDB.getAll('users');
+      bossUsers.innerHTML = users.map(u => `<p>${u.email}: ${u.points} points</p>`).join('');
+      const bots = await IDB.getAll('bots');
+      bossBots.innerHTML = bots.map(b => `<p>${b.name} by ${b.creator}</p>`).join('');
+      const tickets = await IDB.getAll('support');
+      bossTickets.innerHTML = tickets.map(t => `<p>${t.email}: ${t.message}</p>`).join('');
+      bossPerformance.innerHTML = `<p>Total Users: ${users.length}, Total Bots: ${bots.length}</p>`;
+      const logs = await IDB.getAll('tracking');
+      activityFeed.innerHTML = logs.map(l => `<p>${l.user}: ${l.action} at ${new Date(l.timestamp).toLocaleTimeString()}</p>`).join('');
+
+      document.getElementById('broadcast-announcement').addEventListener('click', () => {
+        const message = document.getElementById('announcement-text').value;
+        updates.push({ message, type: 'announcement', timestamp: Date.now() });
+        showToast('Announcement broadcasted');
+        loadNotifications();
+      });
+    }
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      closeAllModals();
+      document.getElementById('login-modal').classList.remove('hidden');
+    });
+
+    // Initialize
+    if (localStorage.getItem('currentUser')) {
+      document.getElementById('login-modal').classList.add('hidden');
+      document.getElementById('sidebar').classList.remove('hidden');
+      document.getElementById('notification-bell').classList.remove('hidden');
+      const user = await IDB.get('users', localStorage.getItem('currentUser'));
+      if (user.email === 'boss@smarthub.com') {
+        document.getElementById('boss-link').classList.remove('hidden');
+      }
+      showWelcome();
+      loadNotifications();
+    }
+  </script>
+</body>
+</html>
